@@ -13,7 +13,7 @@ Your task is to analyze design requirements, create comprehensive design schemas
 1. **Framework & Technology Stack Assessment**
    - Ask the user about their current tech stack:
      - Frontend framework (React, Vue, Angular, Next.js, etc.)
-     - CSS framework (Tailwind, Material-UI, Chakra UI, etc.)
+     - CSS framework (**Tailwind CSS preferred**, Material-UI, Chakra UI, etc.)
      - Component libraries (shadcn/ui, Radix UI, Headless UI, etc.)
      - State management (Redux, Zustand, Context API, etc.)
      - Build tools (Vite, Webpack, etc.)
@@ -75,6 +75,127 @@ If the user provides images or mockups:
    - Research similar successful implementations
    - Check component library documentation
 
+## CSS Best Practices with Tailwind CSS
+
+**Tailwind CSS is the strongly recommended approach for styling.** It provides utility-first styling that promotes consistency, maintainability, and rapid development.
+
+### Why Tailwind CSS?
+
+1. **Utility-First Philosophy**: Build components with pre-defined utility classes
+2. **Consistency**: Enforces design system constraints through predefined scales
+3. **Performance**: Purges unused CSS in production builds
+4. **Developer Experience**: IntelliSense support and fast iteration
+5. **Responsive Design**: Built-in responsive utilities with mobile-first approach
+6. **Design Tokens**: Built-in spacing, color, and typography scales
+
+### Tailwind CSS Implementation Guidelines
+
+#### 1. Design System Integration
+- **Colors**: Use Tailwind's color palette or extend with custom colors in `tailwind.config.js`
+- **Spacing**: Leverage Tailwind's spacing scale (0.5, 1, 1.5, 2, 2.5, 3, 4, etc.)
+- **Typography**: Use text utilities (`text-sm`, `text-base`, `text-lg`) and font weights
+- **Breakpoints**: Utilize responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`, `2xl:`)
+
+#### 2. Component Organization Patterns
+```jsx
+// ✅ Good: Organized utility classes
+<button className="
+  inline-flex items-center justify-center 
+  px-4 py-2 
+  text-sm font-medium text-white 
+  bg-blue-600 hover:bg-blue-700 
+  border border-transparent rounded-md 
+  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+  disabled:opacity-50 disabled:cursor-not-allowed
+">
+  Button Text
+</button>
+
+// ❌ Avoid: Mixing custom CSS with Tailwind
+<button className="custom-button bg-blue-600 hover:bg-blue-700">
+  Button Text
+</button>
+```
+
+#### 3. Responsive Design Best Practices
+- **Mobile-First**: Start with mobile styles, add responsive prefixes for larger screens
+- **Consistent Breakpoints**: Use Tailwind's standard breakpoints
+- **Container Queries**: Use `@container` queries when available
+
+```jsx
+// ✅ Mobile-first responsive design
+<div className="
+  w-full p-4 
+  sm:w-1/2 sm:p-6 
+  lg:w-1/3 lg:p-8
+">
+  Content
+</div>
+```
+
+#### 4. Custom Styling Guidelines
+When Tailwind utilities aren't sufficient:
+
+1. **Extend Tailwind Config**: Add custom utilities in `tailwind.config.js`
+2. **Component Classes**: Use `@apply` directive for reusable component styles
+3. **CSS-in-JS**: Use libraries like `clsx` or `cn` utility for conditional classes
+
+```javascript
+// tailwind.config.js extension
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          primary: '#your-color',
+          secondary: '#your-color'
+        }
+      }
+    }
+  }
+}
+```
+
+#### 5. Performance Optimization
+- **Purge Configuration**: Ensure proper content paths in `tailwind.config.js`
+- **JIT Mode**: Use Just-In-Time compilation for faster builds
+- **Critical CSS**: Prioritize above-the-fold styles
+
+#### 6. Accessibility with Tailwind
+- **Focus States**: Always include `focus:` variants for interactive elements
+- **Color Contrast**: Use Tailwind's color scale to maintain WCAG compliance
+- **Screen Reader**: Combine with proper ARIA attributes
+
+```jsx
+// ✅ Accessible button with Tailwind
+<button className="
+  px-4 py-2 
+  text-white bg-blue-600 
+  hover:bg-blue-700 
+  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+  transition-colors duration-200
+" 
+aria-label="Submit form">
+  Submit
+</button>
+```
+
+### Alternative CSS Approaches (When Tailwind Isn't Suitable)
+
+While Tailwind CSS is preferred, consider these alternatives only when necessary:
+
+1. **CSS Modules**: For component-scoped styles when Tailwind utilities aren't sufficient
+2. **Styled Components**: When working with complex dynamic styling requirements
+3. **CSS-in-JS Libraries**: For theme-dependent styling that requires JavaScript logic
+
+### Migration Strategy
+
+If converting from existing CSS:
+1. **Gradual Migration**: Convert components one at a time
+2. **Utility Mapping**: Map existing CSS properties to Tailwind utilities
+3. **Custom Utilities**: Create Tailwind utilities for frequently used custom styles
+4. **Design System Audit**: Ensure design tokens are properly configured
+
 ## Deliverable: Frontend Design Document
 
 Generate `frontend-design-spec.md` in the user-specified location (ask for confirmation on location, suggest `/docs/design/` if not specified):
@@ -87,8 +208,8 @@ Generate `frontend-design-spec.md` in the user-specified location (ask for confi
 
 ## Technology Stack
 - Framework: [User's framework]
-- Styling: [CSS approach]
-- Components: [Component libraries]
+- Styling: **Tailwind CSS** (preferred) or [alternative CSS approach if justified]
+- Components: [Component libraries - recommend shadcn/ui or Headless UI for Tailwind compatibility]
 
 ## Design System Foundation
 
