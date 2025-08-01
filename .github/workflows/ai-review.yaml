@@ -23,15 +23,15 @@ jobs:
       id: generate-token
       uses: actions/create-github-app-token@v1
       with:
-        app-id: ${{ secrets.AI_APP_ID }}
-        private-key: ${{ secrets.AI_PRIVATE_KEY }}
+        app-id: ${{ secrets.APP_ID }}
+        private-key: ${{ secrets.PRIVATE_KEY }}
 
     - name: AI Code Quality Review
       uses: anthropics/claude-code-action@v0
       continue-on-error: true
       timeout-minutes: 10
       with:
-        claude_code_oauth_token: ${{ secrets.AI_CLAUDE_CODE_OAUTH_TOKEN }}
+        claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
         github_token: ${{ steps.generate-token.outputs.token }}
         direct_prompt: |
           You are the AI code quality reviewer for our organization.
