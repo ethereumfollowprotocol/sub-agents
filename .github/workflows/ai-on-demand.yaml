@@ -76,7 +76,7 @@ jobs:
         echo "Extracted instruction: $INSTRUCTION"
 
     - name: AI Response
-      uses: 0xthrpw/claude-code-action@v0
+      uses: 0xthrpw/claude-code-action@latest
       continue-on-error: true
       timeout-minutes: 10
       with:
